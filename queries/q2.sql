@@ -7,39 +7,33 @@
         * people, appearances, teams
 
     DIMENSIONS ::
-        * ...
+        * namefirst, namelast, height, g_all, teams.name
 
     FACTS ::
-        * ...
+        * Player 
 
     FILTERS ::
         * ...
 
     DESCRIPTION ::
-        ...
+        I concatonated the first and last name listings for the players table and then pulled
+		the name along with height from that table. I then joined the appearances table and 
+		the teams table so I could also select g_all as games_played and teams.name as team. 
 
     ANSWER ::
-        ...
+        Eddie Gaedel has a height of 43 units, and has played 1 game with the St. Louis Browns.
 
 */
-WITH minheight as (SELECT CONCAT(namefirst, ' ', namelast) as name, MIN(height) from people)
 
-SELECT CONCAT(namefirst, ' ', namelast) as name, height
+
+SELECT CONCAT(namefirst, ' ', namelast) as player, height, g_all AS games_played, teams.name AS team
 FROM people
-GROUP BY name, height
+JOIN appearances
+ON people.playerid = appearances.playerid
+JOIN teams
+ON appearances.teamid = teams.teamid
+GROUP BY player, height, games_played, team
 ORDER BY height
 LIMIT 1
---(SELECT MIN(height) from people)
 
-SELECT *
-FROM appearances;
-
-SELECT p.namefirst as First, p.namelast as Last, p.height as Height, t.name as Team
-FROM people as p
-FULL JOIN appearances as a
-ON p.playerid = a.playerid
-FULL JOIN teams as t
-ON a.teamid = t.teamid 
-GROUP BY First, Last, Height
-ORDER BY Height
 ;
