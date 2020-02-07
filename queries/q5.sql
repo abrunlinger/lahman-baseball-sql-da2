@@ -33,6 +33,7 @@ ROUND(AVG(so), 2) AS avg_strikeout,
 corr(hr,so) AS correlation, 
 AVG(so)/AVG(hr) AS strikeout_per_homerun
 FROM batting
+WHERE yearid >= '1920'
 GROUP BY decade
 ORDER BY correlation
 ;
