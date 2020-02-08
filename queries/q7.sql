@@ -59,7 +59,7 @@ maxw AS			(SELECT yearid AS year, MAX(W) AS max_wins
 				ON wsw.year = maxw.year)		
 
 SELECT SUM(ws_winner_had_most_wins) AS years_wsw_had_most, COUNT(year) AS total_years,
-ROUND(SUM(ws_winner_had_most_wins)/COUNT(year)*100) AS percent_ws_most_wins
+ROUND(SUM(ws_winner_had_most_wins)/COUNT(year)*100, 1) AS percent_ws_most_wins
 FROM wwhmw
 ;
 
